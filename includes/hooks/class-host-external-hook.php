@@ -11,7 +11,7 @@ class Host_External_hook
         $mallria_dev_setting_options = Setting_Options::getSettingOptions();
         if (isset($mallria_dev_setting_options['http_request_host_is_external'])) {
             $http_request_host_is_external = $this->filter($mallria_dev_setting_options['http_request_host_is_external']);
-            $hosts = array_map('trim',explode($http_request_host_is_external, ','));
+            $hosts = explode(',',$http_request_host_is_external);
             if (in_array($host, $hosts)) {
                 $is = TRUE;
             }
@@ -19,7 +19,7 @@ class Host_External_hook
         return $is;
     }
 
-    public function filter($string)
+    protected function filter($string)
     {
         // Replace multiple spaces with one
         $string = preg_replace('!\s+!', '', $string);
